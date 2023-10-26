@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "noWebTest",
+    "slug": "noWebTest",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
