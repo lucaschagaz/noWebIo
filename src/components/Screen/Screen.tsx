@@ -6,6 +6,8 @@ import {
 } from "./ScreenComponent/ScreenComponent";
 import { Icon } from "../Icon";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "styled-components";
 
 export interface IScreenProps {
   children: React.ReactNode;
@@ -19,8 +21,10 @@ export const Screen = ({
   canGoBack = false,
 }: IScreenProps) => {
   const Component = scrolable ? ScrollViewComponent : ViewComponent;
+  const { colors } = useTheme();
+  const navigation = useNavigation();
   return (
-    <Component>
+    <Component backgroundColor={colors["PrimaryContrasct"]}>
       <Box
         style={{
           marginHorizontal: 28,
@@ -29,7 +33,13 @@ export const Screen = ({
         }}
       >
         {canGoBack && (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.canGoBack()
+                ? navigation.goBack()
+                : navigation.navigate("Home")
+            }
+          >
             <Icon name="leftSet" size={18} />
           </TouchableOpacity>
         )}
