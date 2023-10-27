@@ -11,13 +11,13 @@ export const AuthStack = () => {
   const auth = false;
 
   return (
-    <Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
-      <Screen options={{ headerShown: false }} name="Home" component={Home} />
+    <Navigator screenOptions={{ headerShown: false }} initialRouteName="TabBar">
+      {/* <Screen options={{ headerShown: false }} name="Home" component={Home} />
       <Screen
         options={{ headerShown: false }}
         name="NewDemand"
         component={NewDemand}
-      />
+      /> */}
       <Screen
         options={{ headerShown: false }}
         name="TabBar"
