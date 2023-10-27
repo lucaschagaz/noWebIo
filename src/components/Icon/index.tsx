@@ -15,6 +15,7 @@ import { LeftSeta } from "../../assets/icons/LeftSeta";
 import { Exclamation } from "../../assets/icons/Exclamation";
 import { ChevronRigth } from "../../assets/icons/ChevronRigth";
 import { Home } from "../../assets/icons/Home";
+import { Men } from "../../assets/icons/Men";
 
 export interface IconBaseProps {
   size?: number;
@@ -45,6 +46,7 @@ const iconsRegistry = {
   leftSet: LeftSeta,
   chevronRigth: ChevronRigth,
   home: Home,
+  men: Men,
 };
 
 type IconsName = keyof typeof iconsRegistry;
