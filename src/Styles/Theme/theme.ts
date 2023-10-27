@@ -8,6 +8,7 @@ export const Theme = {
     Icon: "#9B9B9B",
     BackgroundContrasct: "#0A0909",
     Alert: "#EC7669",
+    BLUR: "#2e2d2d53",
   },
 };
 
