@@ -17,7 +17,7 @@ export const Button = ({
 }: IButtonProps) => {
   return (
     <Wrapper color={color} {...rest} style={style}>
-      <RNText variant="headingThree" color="PrimaryContrasct">
+      <RNText variant="headingThree" bold color="PrimaryContrasct">
         {text}
       </RNText>
     </Wrapper>
