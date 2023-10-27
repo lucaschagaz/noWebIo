@@ -1,10 +1,12 @@
 import styled from "styled-components/native";
-import { Theme } from "../../Styles/Theme/theme";
 
-export const Conteiner = styled.View``;
+export const Image = styled.Image`
+  width: 124px;
+  height: 124px;
+`;
 
-export const Image = styled.Image``;
-
-export const Button = styled.TouchableOpacity``;
-
-export const ButtonText = styled.Text``;
+export const SeeMore = styled.TouchableOpacity`
+  width: 65px;
+  border-bottom-color: ${({ theme }) => theme.colors.Alert};
+  border-bottom-width: 2px;
+`;

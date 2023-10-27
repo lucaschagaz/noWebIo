@@ -32,6 +32,7 @@ export const Icon = ({ name, size, color }: IIconProps) => {
 
 const iconsRegistry = {
   bussines: Bussines,
+  exclamation: Exclamation,
   lupa: Lupa,
   profile: Profile,
   scan: Scan,
@@ -42,11 +43,8 @@ const iconsRegistry = {
   ligth: Ligth,
   calendar: Calendar,
   leftSet: LeftSeta,
-  exclamation: Exclamation,
   chevronRigth: ChevronRigth,
   home: Home,
 };
 
-type IconsType = typeof iconsRegistry;
-
-type IconsName = keyof IconsType;
+type IconsName = keyof typeof iconsRegistry;
