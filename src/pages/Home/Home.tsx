@@ -41,7 +41,9 @@ export const Home = () => {
             <Text variant="subTitleOne">2 de 4 Completos</Text>
           </Box>
           <SeeMore>
-            <Text color="Alert">Ver mais</Text>
+            <Text color="Alert" variant="ParagraphTwo">
+              Ver mais
+            </Text>
           </SeeMore>
         </Box>
         <Image source={require("../../assets/img/woman.png")} />
@@ -52,7 +54,7 @@ export const Home = () => {
         </Text>
         <>
           {arr.map((item) => (
-            <DemandItem />
+            <DemandItem key={item} />
           ))}
         </>
       </Box>

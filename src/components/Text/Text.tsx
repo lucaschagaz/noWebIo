@@ -39,6 +39,7 @@ type textFonts =
   | "headingTwo"
   | "headingThree"
   | "Paragraph"
+  | "ParagraphTwo"
   | "subTitleOne"
   | "subTileTwo"
   | "subTitle";
@@ -47,8 +48,9 @@ const $FontVarients: Record<textFonts, TextStyle> = {
   headingOne: { fontSize: 28, lineHeight: 38 },
   headingTwo: { fontSize: 18, lineHeight: 24 },
   headingThree: { fontSize: 17, lineHeight: 38 },
-  Paragraph: { fontSize: 15, lineHeight: 20 },
+  Paragraph: { fontSize: 15, lineHeight: 38 },
+  ParagraphTwo: { fontSize: 15, lineHeight: 22 },
   subTitleOne: { fontSize: 13, lineHeight: 24 },
   subTileTwo: { fontSize: 11, lineHeight: 24 },
-  subTitle: { fontSize: 6, lineHeight: 6 },
+  subTitle: { fontSize: 10, lineHeight: 10 },
 };
