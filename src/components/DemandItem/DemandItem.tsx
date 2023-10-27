@@ -8,7 +8,7 @@ export const DemandItem = () => {
   return (
     <DemandWrapper>
       <Box style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-        <Icon name="calendar" />
+        <Icon name="bussines" />
         <Box style={{ marginLeft: 16 }}>
           <Text bold variant="ParagraphTwo">
             Projeto1
