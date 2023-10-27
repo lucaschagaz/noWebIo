@@ -8,6 +8,7 @@ import Profile from "../pages/Profile/Profile";
 import Messages from "../pages/Messages/Messages";
 import { Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { AddButton } from "../components/AddButton/AddButton";
 
 export const TabBar = () => {
   const Tab = createBottomTabNavigator();
@@ -59,25 +60,12 @@ export const TabBar = () => {
       <Screen
         options={{
           tabBarIcon: ({ focused }) => (
-            <>
-              <Pressable
-                onPress={() => navigation.navigate("NewDemand")}
-                style={{
-                  width: 56,
-                  height: 56,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  // position: "absolute",
-                  // bottom: 10,
-                  borderRadius: 18,
-                  backgroundColor: focused
-                    ? colors["Primary_Hard"]
-                    : colors["Primary"],
-                }}
-              >
-                <Icon name="plus" size={18} color="PrimaryContrasct" />
-              </Pressable>
-            </>
+            <AddButton
+              onPress={() => navigation.navigate("NewDemand")}
+              size="56"
+              radius="18"
+              background={focused ? "Primary_Hard" : "Primary"}
+            />
           ),
         }}
         name="NewDemand"
