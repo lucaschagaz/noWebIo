@@ -10,7 +10,9 @@ export const DemandItem = () => {
       <Box style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
         <Icon name="calendar" />
         <Box style={{ marginLeft: 16 }}>
-          <Text bold>Projeto1</Text>
+          <Text bold variant="ParagraphTwo">
+            Projeto1
+          </Text>
           <Box style={{ flexDirection: "row" }}>
             <Text
               color="Icon"
