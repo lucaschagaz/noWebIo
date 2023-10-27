@@ -1,13 +1,11 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { useTheme } from "styled-components";
+import { Screen } from "../../components/Screen/Screen";
+import { Text } from "react-native";
 
-const NewDemand = () => {
+export const NewDemand = () => {
   return (
-    <View>
-      <Text>NewDemand</Text>
-    </View>
+    <Screen scrolable>
+      <Text>Nova comande</Text>
+    </Screen>
   );
 };
-
-export default NewDemand;
