@@ -16,19 +16,35 @@ import { Exclamation } from "../../assets/icons/Exclamation";
 import { ChevronRigth } from "../../assets/icons/ChevronRigth";
 import { Home } from "../../assets/icons/Home";
 import { Men } from "../../assets/icons/Men";
+import { Box } from "../Box/Box";
+import { useTheme } from "styled-components";
 
 export interface IconBaseProps {
   size?: number;
   color?: keyof ThemeColor;
 }
 
-interface IIconProps extends IconBaseProps {
+export interface IIconProps extends IconBaseProps {
   name: IconsName;
+  tab?: boolean;
 }
 
-export const Icon = ({ name, size, color }: IIconProps) => {
+export const Icon = ({ name, size, color, tab = false }: IIconProps) => {
   const SVGIcon = iconsRegistry[name];
-  return <SVGIcon color={color} size={size} />;
+  const { colors } = useTheme();
+  return tab ? (
+    <Box
+      style={{
+        backgroundColor: colors["Primary_opacity"],
+        padding: 15,
+        borderRadius: "50%",
+      }}
+    >
+      <SVGIcon color={color} size={size} />
+    </Box>
+  ) : (
+    <SVGIcon color={color} size={size} />
+  );
 };
 
 const iconsRegistry = {
