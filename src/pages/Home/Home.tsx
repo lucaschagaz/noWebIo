@@ -5,21 +5,22 @@ import { Icon } from "../../components/Icon";
 import { Text } from "../../components/Text/Text";
 import { Box } from "../../components/Box/Box";
 import { useTheme } from "styled-components";
-import { TouchableOpacity, ViewStyle } from "react-native";
+import { ViewStyle } from "react-native";
 import { Image, SeeMore } from "./styles";
-import { ScrollViewComponent } from "../../components/Screen/ScreenComponent/ScreenComponent";
 import { DemandItem } from "../../components/DemandItem/DemandItem";
+import { useForm } from "react-hook-form";
 
 export const Home = () => {
   const { colors } = useTheme();
 
+  const { control, handleSubmit } = useForm();
   const arr = [1, 2, 3];
   return (
     <Screen scrolable>
       <Input
         leftComponent={<Icon name="lupa" />}
         placeholder="Buscar projeto"
-        style={{ marginBottom: 36 }}
+        style={{ marginBottom: 36, paddingHorizontal: 20 }}
       />
       <Text variant="headingOne" bold>
         Olá
@@ -80,12 +81,12 @@ const $ProjectsHomeBox: ViewStyle = {
 };
 
 const $ProfileHomeBoxStyle: ViewStyle = {
-  // flexDirection: "row",
   marginTop: 20,
+  width: "100%",
+  // flexDirection: "row",
   // justifyContent: "space-between",
   // alignItems: "center",
   // padding: 24,
   // height: 180,
-  width: "100%",
   // borderRadius: 28,
 };
