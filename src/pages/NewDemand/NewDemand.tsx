@@ -48,193 +48,202 @@ export const NewDemand = () => {
   const go = () => {};
 
   return (
-    <>
-      <Screen scrolable canGoBack>
-        <Modal modalVisible={showModal} setShowModal={setShowModal}>
-          <Text variant="headingThree" bold>
-            Adicionar notificação
-          </Text>
-          <Box style={{ flexDirection: "row" }}>
-            <Input name="hour" control={control} placeholder="hora" />
-            <Input name="minute" control={control} placeholder="minuto" />
-          </Box>
-          <Button text="Adicionar" />
-        </Modal>
-        <Text variant="headingOne" style={{ marginTop: 32 }} bold>
-          Nova Demanda
+    <Screen scrolable canGoBack>
+      <Modal modalVisible={showModal} setShowModal={setShowModal}>
+        <Text variant="headingThree" bold>
+          Adicionar notificação
         </Text>
-        <Box style={{ marginTop: 12 }}>
-          <Text bold>Tipo do projeto</Text>
-          <Box style={$BoxTypeProject}>
-            <Icon name="bussines" />
-            <Input
-              name="projectName"
-              control={control}
-              placeholder="ex: campanha de marketing"
+        <Box style={{ flexDirection: "row" }}>
+          <Input
+            keyboardType="number-pad"
+            name="hour"
+            control={control}
+            placeholder="hora"
+          />
+          <Input
+            keyboardType="number-pad"
+            name="minute"
+            control={control}
+            placeholder="minuto"
+          />
+        </Box>
+        <Button text="Adicionar" />
+      </Modal>
+      <Text variant="headingOne" style={{ marginTop: 32 }} bold>
+        Nova Demanda
+      </Text>
+      <Box style={{ marginTop: 12 }}>
+        <Text bold>Tipo do projeto</Text>
+        <Box style={$BoxTypeProject}>
+          <Icon name="bussines" />
+          <Input
+            name="projectName"
+            control={control}
+            placeholder="ex: campanha de marketing"
+          />
+          <RNTouchableOpacity>
+            <Icon name="scan" color="Primary" />
+          </RNTouchableOpacity>
+        </Box>
+      </Box>
+      <Box style={{ marginTop: 12, flex: 1 }}>
+        <Text bold>Urgência & Tempo esperado</Text>
+        <Box style={$BoxTimeWrapper}>
+          <Box style={$BoxTimeProject}>
+            <Icon name="exclamation" />
+            <Picker
+              onValueChange={(value) => setUrgencySelect(value)}
+              items={urgency}
+              value={urgencySelect}
+              placeholder={{ label: urgencySelect }}
+              style={{
+                viewContainer: {
+                  alignItems: "center",
+                  flex: 1,
+                  justifyContent: "center",
+                },
+                placeholder: {
+                  fontSize: 13,
+                  color: colors.BackgroundContrasct,
+                },
+              }}
             />
-            <RNTouchableOpacity>
-              <Icon name="scan" color="Primary" />
-            </RNTouchableOpacity>
+            <Icon name="down" />
+          </Box>
+          <Box style={$BoxTimeProject}>
+            <Icon name="calendar" />
+            <Input
+              name="amount"
+              keyboardType="number-pad"
+              control={control}
+              placeholder="Qtd."
+              value={"30"}
+            />
+            <Picker
+              onValueChange={(value) => setAmoutnSelect(value)}
+              items={amount}
+              value={amoutnSelect}
+              placeholder={{ label: amoutnSelect }}
+              style={{
+                viewContainer: {
+                  alignItems: "center",
+                  flex: 1,
+                  justifyContent: "center",
+                },
+                placeholder: {
+                  fontSize: 13,
+                  color: colors.BackgroundContrasct,
+                },
+              }}
+            />
+            <Icon name="down" />
           </Box>
         </Box>
-        <Box style={{ marginTop: 12, flex: 1 }}>
-          <Text bold>Urgência & Tempo esperado</Text>
-          <Box style={$BoxTimeWrapper}>
-            <Box style={$BoxTimeProject}>
-              <Icon name="exclamation" />
-              <Picker
-                onValueChange={(value) => setUrgencySelect(value)}
-                items={urgency}
-                value={urgencySelect}
-                placeholder={{ label: urgencySelect }}
-                style={{
-                  viewContainer: {
-                    alignItems: "center",
-                    flex: 1,
-                    justifyContent: "center",
-                  },
-                  placeholder: {
-                    fontSize: 13,
-                    color: colors.BackgroundContrasct,
-                  },
-                }}
-              />
-              <Icon name="down" />
-            </Box>
-            <Box style={$BoxTimeProject}>
-              <Icon name="calendar" />
-              <Input
-                name="amount"
-                control={control}
-                placeholder="Qtd."
-                value={"30"}
-              />
-              <Picker
-                onValueChange={(value) => setAmoutnSelect(value)}
-                items={amount}
-                value={amoutnSelect}
-                placeholder={{ label: amoutnSelect }}
-                style={{
-                  viewContainer: {
-                    alignItems: "center",
-                    flex: 1,
-                    justifyContent: "center",
-                  },
-                  placeholder: {
-                    fontSize: 13,
-                    color: colors.BackgroundContrasct,
-                  },
-                }}
-              />
-              <Icon name="down" />
-            </Box>
-          </Box>
-        </Box>
-        <Box style={{ marginTop: 20 }}>
-          <Text bold>Necessidades </Text>
-          <Box
+      </Box>
+      <Box style={{ marginTop: 20 }}>
+        <Text bold>Necessidades </Text>
+        <Box
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => setNecessity("Identidade")}
             style={{
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              backgroundColor:
+                necessity == "Identidade"
+                  ? colors["Primary"]
+                  : colors["PrimaryContrasct"],
             }}
           >
-            <TouchableOpacity
-              onPress={() => setNecessity("Identidade")}
-              style={{
-                backgroundColor:
-                  necessity == "Identidade"
-                    ? colors["Primary"]
-                    : colors["PrimaryContrasct"],
-              }}
-            >
-              <Icon
-                color={necessity == "Identidade" ? "PrimaryContrasct" : "Icon"}
-                name="ligth"
-                size={60}
-              />
-              <Text
-                style={{ marginTop: 15 }}
-                color={necessity == "Identidade" ? "PrimaryContrasct" : "Icon"}
-                variant="subTitle"
-              >
-                Identidade
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setNecessity("Anuncios")}
-              style={{
-                backgroundColor:
-                  necessity == "Anuncios"
-                    ? colors["Primary"]
-                    : colors["PrimaryContrasct"],
-              }}
-            >
-              <Icon
-                color={necessity == "Anuncios" ? "PrimaryContrasct" : "Icon"}
-                name="voice"
-                size={60}
-              />
-              <Text
-                style={{ marginTop: 15 }}
-                color={necessity == "Anuncios" ? "PrimaryContrasct" : "Icon"}
-                variant="subTitle"
-              >
-                Anuncios
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setNecessity("Desenvolvimento")}
-              style={{
-                backgroundColor:
-                  necessity == "Desenvolvimento"
-                    ? colors["Primary"]
-                    : colors["PrimaryContrasct"],
-              }}
-            >
-              <Icon
-                name="men"
-                size={60}
-                color={
-                  necessity == "Desenvolvimento" ? "PrimaryContrasct" : "Icon"
-                }
-              />
-              <Text
-                style={{ marginTop: 15 }}
-                color={
-                  necessity == "Desenvolvimento" ? "PrimaryContrasct" : "Icon"
-                }
-                variant="subTitle"
-              >
-                Desenvolvimento
-              </Text>
-            </TouchableOpacity>
-          </Box>
-        </Box>
-        <Box style={{ marginTop: 20 }}>
-          <Text bold>Notificações</Text>
-          <Box style={[$BoxTimeWrapper, { alignItems: "center" }]}>
-            <Box style={$BoxTimeProject}>
-              <Icon name="notificationFill" />
-              <Text variant="headingThree" bold>
-                10:00 AM
-              </Text>
-            </Box>
-            <AddButton
-              size="48"
-              radius="14"
-              color="Primary"
-              onPress={() => setShowModal(true)}
+            <Icon
+              color={necessity == "Identidade" ? "PrimaryContrasct" : "Icon"}
+              name="ligth"
+              size={60}
             />
-          </Box>
+            <Text
+              style={{ marginTop: 15 }}
+              color={necessity == "Identidade" ? "PrimaryContrasct" : "Icon"}
+              variant="subTitle"
+            >
+              Identidade
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setNecessity("Anuncios")}
+            style={{
+              backgroundColor:
+                necessity == "Anuncios"
+                  ? colors["Primary"]
+                  : colors["PrimaryContrasct"],
+            }}
+          >
+            <Icon
+              color={necessity == "Anuncios" ? "PrimaryContrasct" : "Icon"}
+              name="voice"
+              size={60}
+            />
+            <Text
+              style={{ marginTop: 15 }}
+              color={necessity == "Anuncios" ? "PrimaryContrasct" : "Icon"}
+              variant="subTitle"
+            >
+              Anuncios
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setNecessity("Desenvolvimento")}
+            style={{
+              backgroundColor:
+                necessity == "Desenvolvimento"
+                  ? colors["Primary"]
+                  : colors["PrimaryContrasct"],
+            }}
+          >
+            <Icon
+              name="men"
+              size={60}
+              color={
+                necessity == "Desenvolvimento" ? "PrimaryContrasct" : "Icon"
+              }
+            />
+            <Text
+              style={{ marginTop: 15 }}
+              color={
+                necessity == "Desenvolvimento" ? "PrimaryContrasct" : "Icon"
+              }
+              variant="subTitle"
+            >
+              Desenvolvimento
+            </Text>
+          </TouchableOpacity>
         </Box>
-        <Button
-          style={{ marginTop: 70 }}
-          text="Enviar"
-          onPress={handleSubmit(go)}
-        />
-      </Screen>
-    </>
+      </Box>
+      <Box style={{ marginTop: 20 }}>
+        <Text bold>Notificações</Text>
+        <Box style={[$BoxTimeWrapper, { alignItems: "center" }]}>
+          <Box style={$BoxTimeProject}>
+            <Icon name="notificationFill" />
+            <Text variant="headingThree" bold>
+              10:00 AM
+            </Text>
+          </Box>
+          <AddButton
+            size="48"
+            radius="14"
+            color="Primary"
+            onPress={() => setShowModal(true)}
+          />
+        </Box>
+      </Box>
+      <Button
+        style={{ marginTop: 70 }}
+        text="Enviar"
+        onPress={handleSubmit(go)}
+      />
+    </Screen>
   );
 };
 

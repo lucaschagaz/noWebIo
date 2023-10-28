@@ -18,6 +18,8 @@ export const Home = () => {
   return (
     <Screen scrolable>
       <Input
+        control={control}
+        name="search"
         leftComponent={<Icon name="lupa" />}
         placeholder="Buscar projeto"
         style={{ marginBottom: 36, paddingHorizontal: 20 }}

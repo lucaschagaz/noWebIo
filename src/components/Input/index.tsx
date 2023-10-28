@@ -9,8 +9,8 @@ import { Box } from "../Box/Box";
 
 interface IInputProps extends TextInputProps {
   leftComponent?: React.ReactNode;
-  control?: Control<any> | any;
-  name?: string;
+  control: Control<any> | any;
+  name: string;
 }
 export const Input = ({
   leftComponent,
@@ -25,10 +25,10 @@ export const Input = ({
 
   return (
     <Controller
-      control={control}
       name={name}
+      control={control}
       render={({ field: { onChange, value }, formState: { errors } }) => (
-        <>
+        <Box style={{ flex: 1, width: "100%" }}>
           <Wrapper style={style}>
             {leftComponent && leftComponent}
             <TextInput
@@ -38,13 +38,24 @@ export const Input = ({
               {...rest}
             />
           </Wrapper>
-          errors[name] ? (
-          <Text style={{ paddingTop: 2, paddingLeft: 5 }} color="Alert">
-            {String(errors[name]?.message)}
-          </Text>
-          ) : (
-          <View style={{ height: 16 }} />)
-        </>
+          {/* <Box
+            style={{
+              // width: 200,
+              // flex: 1,
+              position: "absolute",
+              // paddingTop: 40,
+              // paddingLeft: 15,
+            }}
+          >
+            {errors[name] ? (
+              <Text color="Alert" variant="ParagraphTwo">
+                {String(errors[name]?.message)}
+              </Text>
+            ) : (
+              <View style={{ height: 16 }} />
+            )}
+          </Box> */}
+        </Box>
       )}
     />
   );
