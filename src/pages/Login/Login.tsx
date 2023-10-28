@@ -12,6 +12,7 @@ import { ILoginProps, LoginSchema } from "../../@types/types";
 import { Icon } from "../../components/Icon";
 import Logo from "../../assets/icons/Logo";
 import { useAuth } from "../../store/useAuth";
+import { Alert } from "react-native";
 
 export const Login = () => {
   const {
@@ -32,6 +33,10 @@ export const Login = () => {
       navigation.navigate("TabBar");
     }
   };
+
+  useEffect(() => {
+    Alert.alert("Usuario e Senha", "usurario:lucas - senha:1234567");
+  }, []);
 
   return (
     <Screen scrolable>
