@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Screen } from "../../components/Screen/Screen";
+import { Text } from "../../components/Text/Text";
 
-const Messages = () => {
+export const Messages = () => {
   return (
-    <View>
-      <Text>Messages</Text>
-    </View>
+    <Screen scrolable>
+      <Text variant="headingOne" bold>
+        Messagens
+      </Text>
+      <Text>Você ainda não possui mensagens</Text>
+    </Screen>
   );
 };
-
-export default Messages;

@@ -3,12 +3,12 @@ import { Home } from "../pages/Home/Home";
 import { NewDemand } from "../pages/NewDemand/NewDemand";
 import { Icon } from "../components/Icon";
 import { useTheme } from "styled-components";
-import Calendar from "../pages/Calendar/Calendar";
+import { Calendar } from "../pages/Calendar/Calendar";
 import Profile from "../pages/Profile/Profile";
-import Messages from "../pages/Messages/Messages";
-import { Pressable } from "react-native";
+import { Messages } from "../pages/Messages/Messages";
 import { useNavigation } from "@react-navigation/native";
 import { AddButton } from "../components/AddButton/AddButton";
+import { Login } from "../pages/Login/Login";
 
 export const TabBar = () => {
   const Tab = createBottomTabNavigator();
@@ -95,7 +95,7 @@ export const TabBar = () => {
           ),
         }}
         name="Profile"
-        component={Profile}
+        component={Login}
       />
     </Navigator>
   );

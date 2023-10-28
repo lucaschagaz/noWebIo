@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Screen } from "../../components/Screen/Screen";
+import { Text } from "../../components/Text/Text";
 
-const Calendar = () => {
+export const Calendar = () => {
   return (
-    <View>
-      <Text>Calendar</Text>
-    </View>
+    <Screen scrolable>
+      <Text variant="headingOne" bold>
+        Notificações e Projetos
+      </Text>
+      <Text>ocorreu um erro interno, volte mais tarde!</Text>
+    </Screen>
   );
 };
-
-export default Calendar;
