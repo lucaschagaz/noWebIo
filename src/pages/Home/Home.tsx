@@ -9,11 +9,17 @@ import { ViewStyle } from "react-native";
 import { Image, SeeMore } from "./styles";
 import { DemandItem } from "../../components/DemandItem/DemandItem";
 import { useForm } from "react-hook-form";
+import { useProjects } from "../../store/usePorjects";
+import { useAuth } from "../../store/useAuth";
 
 export const Home = () => {
   const { colors } = useTheme();
 
   const { control, handleSubmit } = useForm();
+  const { listPorjects } = useProjects();
+
+  const { userData } = useAuth();
+
   const arr = [1, 2, 3];
   return (
     <Screen scrolable>
@@ -27,7 +33,7 @@ export const Home = () => {
       <Text variant="headingOne" bold>
         Olá
       </Text>
-      <Text variant="headingOne">Lucas</Text>
+      <Text variant="headingOne">{userData.name}</Text>
       <Box style={[$boxHomeStyle, { backgroundColor: colors.Primary_100 }]}>
         <Box style={$ProjectsHomeBox}>
           <Box
@@ -56,8 +62,14 @@ export const Home = () => {
           Daily Review
         </Text>
         <>
-          {arr.map((item) => (
-            <DemandItem key={item} />
+          {listPorjects.map((item) => (
+            <DemandItem
+              key={item.id}
+              name={item.name}
+              urgency={item.urgency}
+              status={item.status}
+              time={item.time}
+            />
           ))}
         </>
       </Box>

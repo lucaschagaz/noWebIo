@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ViewStyle,
   TouchableOpacity as RNTouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import { Screen } from "../../components/Screen/Screen";
@@ -17,9 +18,11 @@ import { Button } from "../../components/Button/Button";
 import { Modal } from "../../components/Modal/Modal";
 import { AddButton } from "../../components/AddButton/AddButton";
 import { Input } from "../../components/Input";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormSchema, IFormProps } from "../../@types/types";
+import { IProject, useProjects } from "../../store/usePorjects";
+import { useNavigation } from "@react-navigation/native";
 
 export const NewDemand = () => {
   const [necessity, setNecessity] = useState<
@@ -27,26 +30,64 @@ export const NewDemand = () => {
   >("Desenvolvimento");
   const { colors } = useTheme();
 
-  const { control, handleSubmit } = useForm<IFormProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormProps>({
     resolver: yupResolver(FormSchema),
   });
 
   const [showModal, setShowModal] = useState(false);
   const amount = [
-    { label: "horas", value: "horas" },
-    { label: "semanas", value: "semanas" },
-    { label: "meses", value: "meses" },
+    { label: "horas", value: "horas", key: "horas" },
+    { label: "semanas", value: "semanas", key: "semanas" },
+    { label: "meses", value: "meses", key: "meses" },
   ];
   const urgency = [
-    { label: "Padrão", value: "Padrão" },
-    { label: "Crítica", value: "Crítica" },
-    { label: "Imediata", value: "Imediata" },
+    { label: "Padrão", value: "Padrão", key: "Padrão" },
+    { label: "Crítica", value: "Crítica", key: "Crítica" },
+    { label: "Imediata", value: "Imediata", key: "Imediata" },
   ];
   const [amoutnSelect, setAmoutnSelect] = useState("dias");
   const [urgencySelect, setUrgencySelect] = useState("urgencia");
-  const [turn, setTurn] = useState("AM");
 
-  const go = () => {};
+  const { setListProjects } = useProjects();
+
+  const createProject = (data: FieldValues) => {
+    const newProject: IProject = {
+      name: data.projectName,
+      time: { qtd: data.amount, tempo: amoutnSelect },
+      urgency: urgencySelect,
+      status: "em andamento",
+      necessity: necessity,
+    };
+
+    setListProjects(newProject);
+    navigation.navigate("Home");
+  };
+
+  const navigation = useNavigation();
+  const [notification, setNotification] = useState<{
+    hora: string;
+    minuto: string;
+    turn: "AM" | "PM";
+  }>({ hora: "10", minuto: "10", turn: "AM" });
+
+  const [erro, setErro] = useState("");
+  const handleNotification = () => {
+    if (
+      Number(notification.hora) > 12 ||
+      Number(notification.hora) <= 0 ||
+      Number(notification.minuto) > 59 ||
+      Number(notification.hora) < 0
+    ) {
+      setErro("Digite uma hora valida");
+    } else {
+      setShowModal(false);
+      setErro("");
+    }
+  };
 
   return (
     <Screen scrolable canGoBack>
@@ -55,35 +96,62 @@ export const NewDemand = () => {
           Adicionar notificação
         </Text>
         <Box style={$ModalNotificationBox}>
-          <Input
+          <TextInput
+            maxLength={2}
             keyboardType="number-pad"
-            name="hour"
-            style={{ marginHorizontal: 10 }}
-            control={control}
+            style={{
+              fontSize: 16,
+              paddingHorizontal: 10,
+              backgroundColor: colors.backgroundClean,
+              paddingVertical: 10,
+              marginRight: 10,
+            }}
             placeholder="hora"
+            value={notification.hora}
+            onChangeText={(text) =>
+              setNotification((prevState) => ({ ...prevState, hora: text }))
+            }
           />
-          <Input
+          <TextInput
+            maxLength={2}
             keyboardType="number-pad"
-            name="minute"
-            // style={{ marginHorizontal: 10 }}
-            control={control}
+            style={{
+              fontSize: 16,
+              paddingHorizontal: 10,
+              backgroundColor: colors.backgroundClean,
+              paddingVertical: 10,
+              marginLeft: 10,
+            }}
+            value={notification.minuto}
+            onChangeText={(text) =>
+              setNotification((prevState) => ({ ...prevState, minuto: text }))
+            }
             placeholder="minuto"
           />
         </Box>
+        {erro != "" && (
+          <Text color="Alert" variant="subTitleOne">
+            {erro}
+          </Text>
+        )}
         <Box style={$ModalNotificationBox}>
           <TouchableOpacity
-            onPress={() => setTurn("AM")}
+            onPress={() =>
+              setNotification((prevState) => ({ ...prevState, turn: "AM" }))
+            }
             style={{
               padding: 15,
 
               backgroundColor:
-                turn == "AM" ? colors.Primary_100 : colors.PrimaryContrasct,
+                notification.turn == "AM"
+                  ? colors.Primary_100
+                  : colors.PrimaryContrasct,
             }}
           >
             <Text
               style={{
                 color:
-                  turn == "AM"
+                  notification.turn == "AM"
                     ? colors.PrimaryContrasct
                     : colors.BackgroundContrasct,
               }}
@@ -92,18 +160,22 @@ export const NewDemand = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setTurn("PM")}
+            onPress={() =>
+              setNotification((prevState) => ({ ...prevState, turn: "PM" }))
+            }
             style={{
               padding: 15,
 
               backgroundColor:
-                turn == "PM" ? colors.Primary_100 : colors.PrimaryContrasct,
+                notification.turn == "PM"
+                  ? colors.Primary_100
+                  : colors.PrimaryContrasct,
             }}
           >
             <Text
               style={{
                 color:
-                  turn == "PM"
+                  notification.turn == "PM"
                     ? colors.PrimaryContrasct
                     : colors.BackgroundContrasct,
               }}
@@ -118,7 +190,7 @@ export const NewDemand = () => {
             width: "100%",
           }}
         >
-          <Button text="Adicionar" />
+          <Button onPress={handleNotification} text="Adicionar" />
         </Box>
       </Modal>
       <Text variant="headingOne" style={{ marginTop: 32 }} bold>
@@ -143,6 +215,9 @@ export const NewDemand = () => {
           </RNTouchableOpacity>
         </Box>
       </Box>
+      {errors?.projectName && (
+        <Text color="Alert">{errors["projectName"]?.message}</Text>
+      )}
       <Box
         style={{
           marginTop: 12,
@@ -209,6 +284,9 @@ export const NewDemand = () => {
             <Icon name="down" />
           </Box>
         </Box>
+        {errors?.amount && (
+          <Text color="Alert">{errors["amount"]?.message}</Text>
+        )}
       </Box>
       <Box style={{ marginTop: 20 }}>
         <Text bold>Necessidades </Text>
@@ -302,7 +380,7 @@ export const NewDemand = () => {
           >
             <Icon name="notificationFill" />
             <Text style={{ marginLeft: 18 }} variant="headingThree" bold>
-              10:00 AM
+              {notification.hora + ":" + notification.minuto} AM
             </Text>
           </Box>
           <AddButton
@@ -316,7 +394,7 @@ export const NewDemand = () => {
       <Button
         style={{ marginTop: 72 }}
         text="Enviar"
-        onPress={handleSubmit(go)}
+        onPress={handleSubmit(createProject)}
       />
     </Screen>
   );
@@ -329,7 +407,6 @@ const $BoxTypeProject: ViewStyle = {
   borderRadius: 14,
   paddingHorizontal: 14,
   alignItems: "center",
-  // justifyContent: "space-between",
 };
 
 const $BoxNotificationStyle: ViewStyle = {
