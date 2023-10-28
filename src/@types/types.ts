@@ -6,7 +6,8 @@ export interface IFormProps {
   projectName?: string;
   amount?: string;
 }
-export const FormSchema: yup.Schema<IFormProps> = yup.object().shape({
+
+export const FormSchema: yup.ObjectSchema<IFormProps> = yup.object().shape({
   hour: yup.string().max(2, "Maximo de 2 letras").required("Campo obrigatorio"),
   minute: yup
     .string()
@@ -24,7 +25,7 @@ export interface ILoginProps {
   name?: string;
   password?: string;
 }
-export const LoginSchema: yup.Schema<ILoginProps> = yup.object().shape({
+export const LoginSchema: yup.ObjectSchema<ILoginProps> = yup.object().shape({
   name: yup
     .string()
     .min(5, "no minimo 5 letras")
