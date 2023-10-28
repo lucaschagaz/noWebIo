@@ -19,6 +19,8 @@ import { Men } from "../../assets/icons/Men";
 import { Box } from "../Box/Box";
 import { useTheme } from "styled-components";
 import { Down } from "../../assets/icons/Down";
+import { EyeOn } from "../../assets/icons/EyeOn";
+import Logo from "../../assets/icons/Logo";
 
 export interface IconBaseProps {
   size?: number;
@@ -65,6 +67,8 @@ const iconsRegistry = {
   home: Home,
   men: Men,
   down: Down,
+  eye: EyeOn,
+  logo: Logo,
 };
 
 type IconsName = keyof typeof iconsRegistry;
