@@ -1,6 +1,6 @@
 # Teste NoWeb - Aplicativo React Native com Expo
 
-Este é um projeto de teste para a empresa NoWeb, um aplicativo React Native construído com Expo. O aplicativo possui dependências como Zustand, React Navigation, TypeScript, React Hook Form e Yup.
+Este é um projeto de teste para a empresa NoWeb.
 
 ## Pré-requisitos
 
