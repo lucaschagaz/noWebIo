@@ -44,6 +44,7 @@ export const NewDemand = () => {
   ];
   const [amoutnSelect, setAmoutnSelect] = useState("dias");
   const [urgencySelect, setUrgencySelect] = useState("urgencia");
+  const [turn, setTurn] = useState("AM");
 
   const go = () => {};
 
@@ -53,28 +54,84 @@ export const NewDemand = () => {
         <Text variant="headingThree" bold>
           Adicionar notificação
         </Text>
-        <Box style={{ flexDirection: "row" }}>
+        <Box style={$ModalNotificationBox}>
           <Input
             keyboardType="number-pad"
             name="hour"
+            style={{ marginHorizontal: 10 }}
             control={control}
             placeholder="hora"
           />
           <Input
             keyboardType="number-pad"
             name="minute"
+            // style={{ marginHorizontal: 10 }}
             control={control}
             placeholder="minuto"
           />
         </Box>
-        <Button text="Adicionar" />
+        <Box style={$ModalNotificationBox}>
+          <TouchableOpacity
+            onPress={() => setTurn("AM")}
+            style={{
+              padding: 15,
+
+              backgroundColor:
+                turn == "AM" ? colors.Primary_100 : colors.PrimaryContrasct,
+            }}
+          >
+            <Text
+              style={{
+                color:
+                  turn == "AM"
+                    ? colors.PrimaryContrasct
+                    : colors.BackgroundContrasct,
+              }}
+            >
+              AM
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setTurn("PM")}
+            style={{
+              padding: 15,
+
+              backgroundColor:
+                turn == "PM" ? colors.Primary_100 : colors.PrimaryContrasct,
+            }}
+          >
+            <Text
+              style={{
+                color:
+                  turn == "PM"
+                    ? colors.PrimaryContrasct
+                    : colors.BackgroundContrasct,
+              }}
+            >
+              PM
+            </Text>
+          </TouchableOpacity>
+        </Box>
+        <Box
+          style={{
+            padding: 10,
+            width: "100%",
+          }}
+        >
+          <Button text="Adicionar" />
+        </Box>
       </Modal>
       <Text variant="headingOne" style={{ marginTop: 32 }} bold>
         Nova Demanda
       </Text>
       <Box style={{ marginTop: 12 }}>
         <Text bold>Tipo do projeto</Text>
-        <Box style={$BoxTypeProject}>
+        <Box
+          style={[
+            $BoxTypeProject,
+            { backgroundColor: colors["backgroundClean"] },
+          ]}
+        >
           <Icon name="bussines" />
           <Input
             name="projectName"
@@ -86,10 +143,19 @@ export const NewDemand = () => {
           </RNTouchableOpacity>
         </Box>
       </Box>
-      <Box style={{ marginTop: 12, flex: 1 }}>
+      <Box
+        style={{
+          marginTop: 12,
+        }}
+      >
         <Text bold>Urgência & Tempo esperado</Text>
         <Box style={$BoxTimeWrapper}>
-          <Box style={$BoxTimeProject}>
+          <Box
+            style={[
+              $BoxTimeProject,
+              { backgroundColor: colors["backgroundClean"] },
+            ]}
+          >
             <Icon name="exclamation" />
             <Picker
               onValueChange={(value) => setUrgencySelect(value)}
@@ -110,14 +176,18 @@ export const NewDemand = () => {
             />
             <Icon name="down" />
           </Box>
-          <Box style={$BoxTimeProject}>
+          <Box
+            style={[
+              $BoxTimeProject,
+              { backgroundColor: colors["backgroundClean"] },
+            ]}
+          >
             <Icon name="calendar" />
             <Input
               name="amount"
               keyboardType="number-pad"
               control={control}
               placeholder="Qtd."
-              value={"30"}
             />
             <Picker
               onValueChange={(value) => setAmoutnSelect(value)}
@@ -155,7 +225,7 @@ export const NewDemand = () => {
               backgroundColor:
                 necessity == "Identidade"
                   ? colors["Primary"]
-                  : colors["PrimaryContrasct"],
+                  : colors["backgroundClean"],
             }}
           >
             <Icon
@@ -177,7 +247,7 @@ export const NewDemand = () => {
               backgroundColor:
                 necessity == "Anuncios"
                   ? colors["Primary"]
-                  : colors["PrimaryContrasct"],
+                  : colors["backgroundClean"],
             }}
           >
             <Icon
@@ -199,7 +269,7 @@ export const NewDemand = () => {
               backgroundColor:
                 necessity == "Desenvolvimento"
                   ? colors["Primary"]
-                  : colors["PrimaryContrasct"],
+                  : colors["backgroundClean"],
             }}
           >
             <Icon
@@ -224,9 +294,14 @@ export const NewDemand = () => {
       <Box style={{ marginTop: 20 }}>
         <Text bold>Notificações</Text>
         <Box style={[$BoxTimeWrapper, { alignItems: "center" }]}>
-          <Box style={$BoxTimeProject}>
+          <Box
+            style={[
+              $BoxNotificationStyle,
+              { backgroundColor: colors["backgroundClean"] },
+            ]}
+          >
             <Icon name="notificationFill" />
-            <Text variant="headingThree" bold>
+            <Text style={{ marginLeft: 18 }} variant="headingThree" bold>
               10:00 AM
             </Text>
           </Box>
@@ -239,7 +314,7 @@ export const NewDemand = () => {
         </Box>
       </Box>
       <Button
-        style={{ marginTop: 70 }}
+        style={{ marginTop: 72 }}
         text="Enviar"
         onPress={handleSubmit(go)}
       />
@@ -251,24 +326,34 @@ const $BoxTypeProject: ViewStyle = {
   flexDirection: "row",
   width: "100%",
   paddingTop: 5,
+  borderRadius: 14,
   paddingHorizontal: 14,
   alignItems: "center",
-  justifyContent: "space-between",
+  // justifyContent: "space-between",
+};
+
+const $BoxNotificationStyle: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  width: "100%",
+  marginRight: 15,
+  flex: 1,
+  paddingHorizontal: 14,
+  paddingVertical: 5,
+  borderRadius: 14,
 };
 
 const $BoxTimeProject: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-  width: "45%",
-  flex: 1,
-  paddingHorizontal: 16,
-  paddingVertical: 14,
-  justifyContent: "space-around",
+  width: "48%",
+  paddingHorizontal: 10,
+  borderRadius: 14,
 };
 const $BoxTimeWrapper: ViewStyle = {
   flexDirection: "row",
   width: "100%",
-  justifyContent: "space-around",
+  justifyContent: "space-between",
 };
 
 const $PlusBoxStyle: ViewStyle = {
@@ -277,4 +362,11 @@ const $PlusBoxStyle: ViewStyle = {
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 14,
+};
+
+const $ModalNotificationBox: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "space-around",
+  marginTop: 20,
+  paddingHorizontal: 10,
 };

@@ -1,5 +1,10 @@
 import React from "react";
-import { TouchableOpacity, ViewStyle } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,61 +20,47 @@ import { Text } from "../../components/Text/Text";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button/Button";
 import { ILoginProps, LoginSchema } from "../../@types/types";
+import { Icon } from "../../components/Icon";
+import Logo from "../../assets/icons/Logo";
 
 export const Login = () => {
   const { control, handleSubmit } = useForm<ILoginProps>({
     resolver: yupResolver(LoginSchema),
   });
 
-  //   const navigation = useNavigation<AppScreenNavigatorProps>();
-  //   const registerRedirect = () => {
-  //     navigation.navigate("Register");
-  //   };
-  //   const { setLogged } = useLogged();
+  const navigation = useNavigation();
 
-  const { colors } = useTheme();
+  const signIn = () => {
+    navigation.navigate("TabBar");
+  };
 
   return (
     <Screen scrolable>
+      <Logo />
       <Text variant="headingOne" bold>
         Login
       </Text>
-      <Text variant="headingThree">Informe seu cpf e senha cadastrados</Text>
+      <Text variant="headingTwo">Para entre informe nome e senha</Text>
 
-      <Input control={control} placeholder="Nome do usuario" name="username" />
       <Input
+        style={{ marginTop: 40 }}
+        control={control}
+        placeholder="Nome do usuario"
+        name="username"
+      />
+      <Input
+        style={{ marginTop: 25 }}
         control={control}
         placeholder="Sua Senha"
         name="password"
-        // rightComponent={<Icon name="eye" size={20} color="GRAY" />}
+        secureTextEntry
+        rightComponent={<Icon name="eye" size={20} />}
       />
-
       <Button
         text="Entrar"
-        style={{ marginTop: 10 }}
-        // onPress={() => setLogged(true)}
-        // onPress={() =>
-        //   navigation.navigate("OTPCode", { type: "number", contact: phone })
-        // }
-        // onPressIn={handleSubmit(registerRedirect)}
+        style={{ marginTop: 30 }}
+        onPressIn={handleSubmit(signIn)}
       />
     </Screen>
   );
 };
-
-const $RegisterBox: ViewStyle = {
-  flexDirection: "row",
-  width: "100%",
-  marginTop: 20,
-  justifyContent: "center",
-};
-
-const $FlagBox: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  borderRightWidth: 1,
-  height: "100%",
-  paddingHorizontal: 5,
-};
-
-const $InputBoxStyleProps: ViewStyle = { flex: 1, width: "100%" };

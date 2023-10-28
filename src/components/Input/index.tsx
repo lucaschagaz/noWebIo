@@ -9,11 +9,13 @@ import { Box } from "../Box/Box";
 
 interface IInputProps extends TextInputProps {
   leftComponent?: React.ReactNode;
+  rightComponent?: React.ReactNode;
   control: Control<any> | any;
   name: string;
 }
 export const Input = ({
   leftComponent,
+  rightComponent,
   style,
   control,
   name,
@@ -28,34 +30,38 @@ export const Input = ({
       name={name}
       control={control}
       render={({ field: { onChange, value }, formState: { errors } }) => (
-        <Box style={{ flex: 1, width: "100%" }}>
-          <Wrapper style={style}>
-            {leftComponent && leftComponent}
-            <TextInput
-              placeholderTextColor={colors.Icon}
-              onChangeText={(text) => onChange(text)}
-              value={value}
-              {...rest}
-            />
-          </Wrapper>
-          {/* <Box
-            style={{
-              // width: 200,
-              // flex: 1,
-              position: "absolute",
-              // paddingTop: 40,
-              // paddingLeft: 15,
-            }}
-          >
-            {errors[name] ? (
-              <Text color="Alert" variant="ParagraphTwo">
-                {String(errors[name]?.message)}
-              </Text>
-            ) : (
-              <View style={{ height: 16 }} />
-            )}
-          </Box> */}
-        </Box>
+        // <Box style={{ flex: 1 }}>
+        <Wrapper style={style}>
+          {leftComponent && leftComponent}
+          <TextInput
+            placeholderTextColor={colors.Icon}
+            onChangeText={(text) => onChange(text)}
+            value={value}
+            {...rest}
+          />
+          {rightComponent && rightComponent}
+        </Wrapper>
+        //   <Box
+        //     style={{
+        //       position: "absolute",
+        //       marginTop: 40,
+        //       flex: 1,
+        //       width: 300,
+        //     }}
+        //   >
+        //     {errors[name] ? (
+        //       <Text
+        //         color="Alert"
+        //         variant="ParagraphTwo"
+        //         style={{ paddingLeft: 10, paddingTop: 5 }}
+        //       >
+        //         {String(errors[name]?.message)}
+        //       </Text>
+        //     ) : (
+        //       <></>
+        //     )}
+        //   </Box>
+        // </Box>
       )}
     />
   );
