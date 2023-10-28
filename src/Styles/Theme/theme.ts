@@ -9,6 +9,7 @@ export const Theme = {
     BackgroundContrasct: "#0A0909",
     Alert: "#EC7669",
     BLUR: "#2e2d2d53",
+    backgroundClean: "#F8F8F6",
   },
 };
 
