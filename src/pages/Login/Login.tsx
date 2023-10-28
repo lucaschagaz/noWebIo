@@ -1,20 +1,9 @@
-import React from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  ViewStyle,
-} from "react-native";
+import React, { useEffect } from "react";
+
 import { useNavigation } from "@react-navigation/native";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import { PhoneSchema } from "@utils/schemas";
-// import { useLogged } from "@store/useLogged";
-// import { AppScreenNavigatorProps } from "src/@types/navigation/types";
-// import { IUserPhoneProps } from "src/@types/types";
-
-import { useTheme } from "styled-components";
 import { Screen } from "../../components/Screen/Screen";
 import { Text } from "../../components/Text/Text";
 import { Input } from "../../components/Input";
@@ -22,16 +11,26 @@ import { Button } from "../../components/Button/Button";
 import { ILoginProps, LoginSchema } from "../../@types/types";
 import { Icon } from "../../components/Icon";
 import Logo from "../../assets/icons/Logo";
+import { useAuth } from "../../store/useAuth";
 
 export const Login = () => {
-  const { control, handleSubmit } = useForm<ILoginProps>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginProps>({
     resolver: yupResolver(LoginSchema),
   });
 
   const navigation = useNavigation();
+  const { userData } = useAuth();
 
-  const signIn = () => {
-    navigation.navigate("TabBar");
+  const signIn = (data: FieldValues) => {
+    console.log(data);
+
+    if (data.username == userData.name && data.password == userData.password) {
+      navigation.navigate("TabBar");
+    }
   };
 
   return (
@@ -48,6 +47,9 @@ export const Login = () => {
         placeholder="Nome do usuario"
         name="username"
       />
+      {errors?.username && (
+        <Text color="Alert">{errors["username"]?.message}</Text>
+      )}
       <Input
         style={{ marginTop: 25 }}
         control={control}
@@ -56,6 +58,9 @@ export const Login = () => {
         secureTextEntry
         rightComponent={<Icon name="eye" size={20} />}
       />
+      {errors?.password && (
+        <Text color="Alert">{errors["password"]?.message}</Text>
+      )}
       <Button
         text="Entrar"
         style={{ marginTop: 30 }}

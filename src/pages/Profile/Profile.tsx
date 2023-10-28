@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Screen } from "../../components/Screen/Screen";
+import { Text } from "../../components/Text/Text";
+import { Pressable } from "react-native";
+import { useAuth } from "../../store/useAuth";
 
-const Profile = () => {
+export const Profile = () => {
+  const { userData } = useAuth();
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <Screen scrolable>
+      <Text variant="headingOne">Perfil</Text>
+    </Screen>
   );
 };
-
-export default Profile;
