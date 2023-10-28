@@ -1,4 +1,9 @@
-import { Pressable, Modal as RNModal, TouchableOpacity } from "react-native";
+import {
+  Pressable,
+  Modal as RNModal,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 import React from "react";
 import { Box } from "../Box/Box";
 import { useTheme } from "styled-components";
@@ -23,22 +28,14 @@ export const Modal = ({
   return (
     <RNModal animationType="slide" transparent={true} visible={modalVisible}>
       <Pressable
-        onPress={() => handlechange()}
-        style={{
-          backgroundColor: colors["BLUR"],
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        onPress={handlechange}
+        style={[$PrassableStyleProps, { backgroundColor: colors["BLUR"] }]}
       >
         <Box
-          style={{
-            width: 300,
-            minHeight: 200,
-            alignItems: "center",
-            borderRadius: 14,
-            backgroundColor: colors["PrimaryContrasct"],
-          }}
+          style={[
+            $ModalBoxStyle,
+            { backgroundColor: colors["PrimaryContrasct"] },
+          ]}
         >
           {children}
         </Box>
@@ -47,7 +44,16 @@ export const Modal = ({
   );
 };
 
-// onRequestClose={() => {
-//     Alert.alert('Modal has been closed.');
-//     setModalVisible(!modalVisible);
-//   }}
+const $PrassableStyleProps: ViewStyle = {
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const $ModalBoxStyle: ViewStyle = {
+  zIndex: 999,
+  width: 300,
+  // minHeight: 200,
+  alignItems: "center",
+  borderRadius: 14,
+};
